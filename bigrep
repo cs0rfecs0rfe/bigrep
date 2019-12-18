@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+#---------------------------------------------------------------------------------------
+#
+#
+#
+#
+#  bigrep - pronounced bi-grep
+#
+#
+# 
+#---------------------------------------------------------------------------------------
+#
+#
+# Copyright (c) 2019 Robert Ian Ferguson
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+#---------------------------------------------------------------------------------------
+#
+#
+# Changelog
+#
+#	18/12/2019 - V1.0 ian.ferguson@abertay.ac.uk
+#
+#
+#---------------------------------------------------------------------------------------
+
+
+
+
+
+import regex, mmap, argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("regex", help="See the Python regex command for details of regex format. To specify a char in hex use \\xXX - e.g. \\x41 will match the character 'A'")
+parser.add_argument("filename")
+parser.add_argument("-r", "--range", help="Print the offset of the start and end of matches", action="store_true")
+parser.add_argument("-d", "--display", help="Print the actual match - Careful, it might be binary and/or very big!", action="store_true")
+parser.add_argument("-n", "--noDecode", help="Output matches as Unicode code points", action="store_true")
+parser.add_argument("-p", "--printRegex", help="Print the regexp - USeful in debugging what shell substitution has done to you regex", action="store_true")
+parser.add_argument("-ee", "--expressionEncoding", help="examples include ASCII (default), utf-8, ISO-8859-1", default="ASCII")
+parser.add_argument("-oe", "--outputEncoding", help="examples include ASCII (default), utf-8, ISO-8859-1", default="ASCII")
+
+args = parser.parse_args()
+
+if args.printRegex:
+	print(args.regex)
+
+with open(args.filename, 'rb') as f:
+	data = mmap.mmap(f.fileno(), 0, mmap.MAP_SHARED, mmap.PROT_READ)
+	pattern = regex.compile(args.regex.encode(args.expressionEncoding))
+	
+	findIterator = pattern.finditer(data)
+	for match in findIterator:
+		if args.range:
+			start = match.start()
+			end = match.end()
+			print (start, end, end='')
+
+
+		if args.display and args.display:
+			print(" ", end='')			
+
+		if args.display:
+			if args.noDecode:
+				print (match.group(), end='')
+			else:
+				print (match.group().decode(args.outputEncoding), end='')
+
+		if args.range or args.display:
+			print("")
+

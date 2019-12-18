@@ -19,3 +19,4 @@ support the common option you might expect of a 'grep'.
 Like other members of the grep family it returns 0 (no error) in the case of a
 match otherwise it returns non-zero.
 
+------

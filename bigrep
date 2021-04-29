@@ -32,7 +32,8 @@
 #
 # Changelog
 #
-#	18/12/2019 - V1.0 ian.ferguson@abertay.ac.uk
+#	18/12/2019 - V1.0 ian.ferguson@abertay.ac.uk - initial commit
+#	29/04/2021 - V1.1 ian.ferguson@abertay.ac.uk - made DOTALL the default
 #
 #
 #---------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ if args.printRegex:
 
 with open(args.filename, 'rb') as f:
 	data = mmap.mmap(f.fileno(), 0, mmap.MAP_SHARED, mmap.PROT_READ)
-	pattern = regex.compile(args.regex.encode(args.expressionEncoding))
+	pattern = regex.compile(args.regex.encode(args.expressionEncoding), regex.DOTALL)
 	
 	findIterator = pattern.finditer(data)
 	for match in findIterator:

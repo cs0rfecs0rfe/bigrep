@@ -37,7 +37,7 @@
 #
 #
 #---------------------------------------------------------------------------------------
-# e.g. carving jpegs - bigrep -r "\\xFF\\xD8\\xFF\\xE0\\x00\\x10[\s\S]*?\\xFF\\xD9" <image file> > jpgOffset.txt
+# e.g. carving jpegs - bigrep -r "\\xFF\\xD8\\xFF\\xE0\\x00\\x10[\s\S]*?\\xFF\\xD9" imagefile.dd > jpgOffset.txt
 #---------------------------------------------------------------------------------------
 
 

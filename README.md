@@ -1,7 +1,7 @@
 # bigrep
 Bigrep - pronounced 'bi-grep'. 
 
-Maybe it means binary grep, maybe it means big grep........
+         Maybe it means binary grep, maybe it means big grep........
 
 -------------------------------------------------------------------------------
 
@@ -18,5 +18,17 @@ support the common options/switches that you might expect of a 'grep'.
 
 Like other members of the grep family it returns 0 (no error) in the case of a
 match otherwise it returns non-zero.
+
+
+-------------------------------------------------------------------------------
+
+Example Usage
+=============
+
+1. Finding the start of any JPG files in a disk image
+ 
+bigrep -r "\\xFF\\xD8\\xFF\\xE0\\x00\\x10.*?\\xFF\\xD9" <image file>
+
+
 
 #####-----

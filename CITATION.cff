@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "bigrep: binary regular-expression search of large forensic images"
+type: software
+authors:
+  - family-names: Ferguson
+    given-names: Robert Ian
+    affiliation: Abertay University
+date-released: 2020-12-18
+version: "1.0.0"
+repository-code: "https://github.com/cs0rfecs0rfe/bigrep"
+license: "GNU GPL 3.0"
